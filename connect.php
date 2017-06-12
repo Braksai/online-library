@@ -1,3 +1,10 @@
 <?php
-$connect = mysqli_connect('localhost','root','');
-mysqli_select_db($connect,'online-library');
+
+$host	= 'localhost';
+$user	= 'root';
+$pass	= '';
+$dbname = 'online-library';
+
+$connect = mysqli_connect($host, $user, $pass) or die('Could not connect to mysql server.');
+
+mysqli_select_db($connect, $dbname) or die('Could not select database.');
