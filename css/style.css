@@ -1,0 +1,181 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 13, 2017, 6:31:59 PM
+    Author     : Alin
+*/
+
+/*@font-face {
+    font-family: PFDinDisplayPro-Regular;
+    src: url('../fonts/PFDinDisplayPro-Regular/./fonts/PFDinDisplayPro-Regular.tff');
+}*/
+
+@font-face {
+    font-family: 'PFDinDisplayPro-Regular';
+    src: url('../fonts/PFDinDisplayPro-Regular/PFDinDisplayPro-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/PFDinDisplayPro-Regular/PFDinDisplayPro-Regular.woff') format('woff'), 
+        url('../fonts/PFDinDisplayPro-Regular/PFDinDisplayPro-Regular.ttf')  format('truetype'), 
+        url('../fonts/PFDinDisplayPro-Regular/PFDinDisplayPro-Regular.svg#PFDinDisplayPro-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.group:before,
+.group:after {
+    content: "";
+    display: table;
+} 
+.group:after {
+    clear: both;
+}
+.group {
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+body {
+    padding: 0;
+    font-family: "Open Sans","Arial","Helvetica",sans-serif;
+    font-weight: 400;
+    line-height: 1.4;
+    background: #eeeff7;
+}
+
+.book {
+    margin-top: 15px;
+    width: 140px;
+    height: 215px;
+    min-height: 215px;
+    max-height: 215px;
+    border: 1px solid; 
+    border-radius:25px; 
+    border-style:outset;
+    border-color: #000;	
+    box-shadow: 3px 3px 7px #000;
+    filter: sepia(1);
+    -webkit-filter: sepia(1);
+    -moz-filter: sepia(1);
+    -o-filter: sepia(1);
+    -ms-filter: sepia(1);
+}
+
+.title-book {
+    height: 70px;
+    padding: 15px 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.thumbnail:hover > .book {
+    filter: sepia(0);
+    -webkit-filter: sepia(0);
+    -moz-filter: sepia(0);
+    -o-filter: sepia(0);
+    -ms-filter: sepia(0);
+}
+
+.thumbnail {
+    max-height: 300px;
+}
+
+.navbar-nav > li {
+    background: #435779;
+    color: #FFF;
+    padding: 0 10px;
+    margin: 10px 10px;
+    border-radius: 6px;
+}
+
+.navbar-nav > li > a {
+    color: #fff!important;
+}
+
+.navbar-nav > li:hover {
+    background: #808080;
+}
+
+.site-logo-img {
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    /*vertical-align: middle;*/
+}
+
+.site-logo-text {
+    font-size: 28px;
+    vertical-align: middle;
+    display: table-cell;
+    color: #333 !important;
+    font-family: "PFDinDisplayPro-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#branding {
+    width: 230px;
+    display:table;
+}
+
+#header {
+    font-family: "PFDinDisplayPro-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#logo > a {
+    text-decoration: none;
+    color: #1d282e;
+}
+
+img, a img {
+    border: none;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* styles for '...' */ 
+.block-with-text {
+  /* hide text if it more than N lines  */
+  overflow: hidden;
+  /* for set '...' in absolute position */
+  position: relative; 
+  /* use this value to count block height */
+  line-height: 1.2em;
+  /* max-height = line-height (1.2) * lines max number (3) */
+  max-height: 3.6em; 
+  /* fix problem when last visible word doesn't adjoin right side  */
+  text-align: justify;  
+  /* place for '...' */
+  margin-right: -1em;
+  padding-right: 1em;
+}
+/* create the ... */
+.block-with-text:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+/* hide ... if we have text, which is less than or equal to max lines */
+.block-with-text:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: white;
+}
