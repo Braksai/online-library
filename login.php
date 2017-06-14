@@ -76,3 +76,42 @@
 
 </body>
 </html>
+<?php
+include_once 'connect.php';
+if(isset($_POST['btn-login'])){
+    $utilizator = mysqli_real_escape_string($connect,$_POST['username']);
+    $parola = mysqli_real_escape_string($connect,$_POST['pass']);
+
+    if((empty($utilizator)) OR (empty($parola))){
+        ?>
+        <script>
+            window.location = 'login.php';
+            alert('Campurile trebuie completate!');
+            window.location = 'login.php';
+        </script>
+<?php
+    }else{
+        $sql = mysqli_query($connect,"SELECT * FROM utilizatori WHERE utilizator = '$utilizator' AND parola = '$parola'")or die(mysqli_error());
+
+        $row = mysqli_fetch_array($sql);
+        $_SESSION['utilizator'] = $row['utilizator'];
+        $_SESSION['parola'] = $row['parola'];
+        $_SESSION['id'] = $row['id_u'];
+        $_SESSION['acces'] = $row['acces'];
+
+        $utilizator = $_SESSION['utilizator'];
+        $parola = $_SESSION['parola'];
+        $id_u = $_SESSION['id'];
+
+        if(mysqli_num_rows($sql)>0){
+            header("Location: index.php?utilizator=$utilizator&id=$id_u");
+        }else{
+            ?>
+            <script>
+                window.location = 'login.php';
+                alert('Datele nu corespund!');
+            </script>
+<?php
+        }
+    }
+}

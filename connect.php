@@ -9,4 +9,6 @@ $connect = mysqli_connect($host, $user, $pass) or die('Could not connect to mysq
 
 mysqli_select_db($connect, $dbname) or die('Could not select database.');
 
+
+session_start();
 ?>

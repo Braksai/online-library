@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+include_once 'connect.php';
+?>
 
 <!DOCTYPE html>
 <head>
@@ -118,3 +120,35 @@
 
 </body>
 </html>
+<?php
+if(isset($_POST['btn-login'])){
+    $nume = mysqli_real_escape_string($connect, $_POST['nume']);
+    $prenume = mysqli_real_escape_string($connect, $_POST['prenume']);
+    $username = mysqli_real_escape_string($connect, $_POST['username']);
+    $email = mysqli_real_escape_string($connect, $_POST['email']);
+    $tel = mysqli_real_escape_string($connect, $_POST['tel']);
+    $adresa = mysqli_real_escape_string($connect, $_POST['adresa']);
+    $parola = mysqli_real_escape_string($connect, $_POST['pass']);
+    
+    $sql = "INSERT INTO utilizatori(nume, prenume, email, utilizator, telefon, adresa, parola, data_add) "
+            . "VALUES('$nume','$prenume','$email','$username','$tel','$adresa','$parola', NOW()) ";
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    
+    if($res){
+        ?>
+<script>
+    window.location = 'register.php';
+    alert('Ai fost inregistrat cu succes!');
+    window.location = 'register.php';
+    </script>
+<?php
+    }else{
+        ?>
+<script>
+    window.location = 'register.php';
+    alert('ATENTIE! Nu ai fost inregistrat!');
+    window.location = 'register.php';
+    </script>
+<?php 
+    }
+}

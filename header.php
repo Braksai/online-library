@@ -1,59 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GiftBox</title>
-    <link rel="stylesheet" type="text/css" href="css.css"/>
-</head>
-<body>
+ 
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>EBiblioUTCN</title>
+
+        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/thumbnail-gallery.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/style.css" type="text/css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Navigation -->
+       
 <?php
-session_start();
-if(empty($_SESSION['id_utilizator'])){
-    echo "<div class='autentificare'>
-    <table border='0' style='width:99%'>
-        <tr><th style='width:20%'><span style='color:white'>Sunati-ne acum la: Nr de telefon</span></th>
-            <th style='width:50%;'></th>
-            <th><a href='autentificare.php' style='color:white;float:right;text-decoration: none'>Autentificare  | </a></th>
-            <th><a href='inregistrare.php' style='color:white;float:left;margin-left:3%;text-decoration: none'>Inregistrare</a></th>
-        </tr>
-    </table>
-</div>";
+include_once 'connect.php';
+if(empty($_SESSION['id'])){
+    echo '<nav class="navbar navbar-inverse" role="navigation" style="background: #232a34;">
+            <div style="background: #fff; height: 80px; padding-top: 15px;">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="index.php" title="Home page">
+                            <img class="site-logo-img pull-left" src="images/logo.png" alt="EBiblioUTCN">
+                            <span class="navbar-brand site-logo-text">EBiblioUTCN</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div>
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            <a href="login.php">Autentificare</a>
+                        </li>
+                        <li>
+                            <a href="register.php">Inregistrare</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>';
 }else{
     if($_SESSION['acces'] == 1){
-        echo "<div class='autentificare'>
-    <table border='0' style='width:99%'>
-        <tr><th style='width:20%'><span style='color:white'>Sunati-ne acum la: Nr de telefon</span></th>
-            <th style='width:50%;'></th>
-            <th style='width:10%;'><a href='administrator.php?cod=0' style='color:white;float:right;text-decoration: none'>Administrare  | </a></th>
-            <th style='width:10%;'><a href='cos_cumparaturi.php' style='color:white;float:right;text-decoration: none'>Cos cumparaturi  | </a></th>
-            <th style='width:10%;'><a href='deconectare.php' style='color:white;float:left;margin-left:3%;text-decoration: none'>Deconectare</a></th>
-        </tr>
-    </table>
-</div>";
+        echo ' <nav class="navbar navbar-inverse" role="navigation" style="background: #232a34;">
+            <div style="background: #fff; height: 80px; padding-top: 15px;">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="index.php" title="Home page">
+                            <img class="site-logo-img pull-left" src="images/logo.png" alt="EBiblioUTCN">
+                            <span class="navbar-brand site-logo-text">EBiblioUTCN</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div>
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            <a href="administrare.php">Administrare</a>
+                        </li>
+                        <li>
+                            <a href="rezervare.php">Rezervare</a>
+                        </li>
+                        <li>
+                            <a href="deconectare.php">Deconectare</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>';
     }else{
-    echo "<div class='autentificare'>
-    <table border='0' style='width:99%'>
-        <tr><th style='width:20%'><span style='color:white'>Sunati-ne acum la: Nr de telefon</span></th>
-            <th style='width:50%;'></th>
-            <th><a href='cos_cumparaturi.php' style='color:white;float:right;text-decoration: none'>Cos cumparaturi  | </a></th>
-            <th><a href='deconectare.php' style='color:white;float:left;margin-left:3%;text-decoration: none'>Deconectare</a></th>
-        </tr>
-    </table>
-</div>";
+    echo ' <nav class="navbar navbar-inverse" role="navigation" style="background: #232a34;">
+            <div style="background: #fff; height: 80px; padding-top: 15px;">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="index.php" title="Home page">
+                            <img class="site-logo-img pull-left" src="images/logo.png" alt="EBiblioUTCN">
+                            <span class="navbar-brand site-logo-text">EBiblioUTCN</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div>
+                    <ul class="nav navbar-nav pull-right">
+                           <li>
+                            <a href="rezervare.php">Rezervare</a>
+                        </li>
+                        <li>
+                            <a href="deconectare.php">Deconectare</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>';
 }
 }
-echo "<center>
-<form action='cauta.php' method='POST'>
-<table border='0' style='width:70%;'>
-<tr><th style='width:40%;'><a href='index.php'><img src='images/logo.png' class='logo' ></a></th>
-<th><center>
-<table border='0' style='width:80%;'>
-<tr>
-<th><img src='images/cauta.png' class='cauta'></th>
-<th><input type='text' name='text_cauta' style='width:100%;' placeholder='Cauta ...'/> </th>
-<th><button name='cauta' class='buton' style='margin-left:20%;'/>Cauta</button></th></tr>
-</table></center>
-</th></tr>
-</table>
-</form>
-</center>";
