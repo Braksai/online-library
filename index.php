@@ -25,7 +25,7 @@ include_once 'connect.php';
             <div style="background: #fff; height: 80px; padding-top: 15px;">
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="/" title="Home page">
+                        <a href="index.php" title="Home page">
                             <img class="site-logo-img pull-left" src="images/logo.png" alt="EBiblioUTCN">
                             <span class="navbar-brand site-logo-text">EBiblioUTCN</span>
                         </a>
@@ -36,10 +36,10 @@ include_once 'connect.php';
                 <div>
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <a href="/login.php">Autentificare</a>
+                            <a href="login.php">Autentificare</a>
                         </li>
                         <li>
-                            <a href="/register.php">Inregistrare</a>
+                            <a href="register.php">Inregistrare</a>
                         </li>
                     </ul>
                 </div>
