@@ -16,15 +16,18 @@ include_once 'header.php';
         $result_set = mysqli_query($connect, $sql_query);
         $book = mysqli_fetch_assoc($result_set);
         ?>
+        <form action="" method="POST">
+            <input type="text" name="id_c" value="<?php echo $book['id_c']; ?>" hidden/>
+            <input type="text" name="stoc" value="<?php echo $book['nr_carti']; ?>" hidden/>
         <div class="left-description col-lg-4">
             <img class="book-view" src="images/<?php echo $book['poza']; ?>" alt="">
             <p class="mt15 alert alert-info text-center"><i class="fa fa-info-circle" aria-hidden="true"></i> Nr. carti disponibile: <span><?php echo $book['nr_carti']; ?></span></p>
-            <?php if ($book['nr_carti'] <= 0) { ?>
+            <?php if ($book['nr_carti'] <= 0 OR (empty($_SESSION['id']))) { ?>
                 <button class="btn btn-lg btn-default" style='width: 100%;' disabled>Rezerva</button>
             <?php } else { ?>
-                <a href="rezerva.php">
-                    <button class="btn btn-lg btn-default" style='width: 100%;'>Rezerva</button>
-                </a>
+               
+                    <button class="btn btn-lg btn-default" style='width: 100%;' name="rezerva">Rezerva</button>
+                
             <?php } ?>
         </div>
         <div class="right-description col-lg-8">
@@ -53,7 +56,7 @@ include_once 'header.php';
         </div>
     </div>
 </div>
-
+</form>
 <footer style="background: #232a34; height: 100px; margin: 0px; color: #fff; text-align: center; ">
     <div class="container">
         <div class="row">
@@ -73,3 +76,46 @@ include_once 'header.php';
 
 
 </html> 
+<?php
+if(isset($_POST['rezerva'])){
+    $id_c = mysqli_real_escape_string($connect, $_POST['id_c']);
+    $stoc = mysqli_real_escape_string($connect, $_POST['stoc']);
+    $utilizator = $_SESSION['id'];
+    
+    
+    if($stoc <= 0 ){
+           ?>
+            <script>
+                window.location = 'book.php?id_c=<?php echo $row['id_c']; ?>';
+                alert('Din pacate numarul de carti este depasit de cerere!');
+            </script>
+<?php
+    }else{
+    $stoc_nou = $stoc - 1;
+    
+    $sql1 = "UPDATE carte SET nr_carti ='$stoc_nou' WHERE id_c = '$id_c'";
+    $res1 = mysqli_query($connect, $sql1) or die(mysqli_error());
+    
+    $sql2 = "INSERT INTO rezervare (id_u, id_c, data_rez, data_exp, data_add)"
+            . " VALUES('$utilizator','$id_c', DATE(NOW()),DATE(ADDDATE(NOW(), INTERVAL 3 WEEK)),NOW())";
+    $res2 = mysqli_query($connect, $sql2)or die(mysqli_error());
+    
+    
+    
+    if($res1 AND $res2){
+        ?>
+            <script>
+                window.location = 'rezervare.php';
+                alert('Cartea a fost rezervata cu succes!');
+            </script>
+<?php
+    }else{
+        ?>
+            <script>
+                window.location = 'rezervare.php';
+                alert('Eroare la rezervarea cartii!');
+            </script>
+<?php
+    }
+}
+}
