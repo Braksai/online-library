@@ -43,6 +43,10 @@ body {
     background: #eeeff7;
 }
 
+.dark-blue-bg {
+    background-color: #232a34!important;
+}
+
 .mt15 {
     margin-top: 15px;
 }

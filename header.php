@@ -65,13 +65,13 @@ if(empty($_SESSION['id'])){
                 <div>
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <a href="administrare.php">Administrare</a>
+                            <a href="administrare.php"><i class="fa fa-cogs" aria-hidden="true"></i> Administrare</a>
                         </li>
                         <li>
-                            <a href="rezervare.php">Rezervare</a>
+                            <a href="rezervare.php"><i class="fa fa-address-book-o" aria-hidden="true"></i> Rezervare</a>
                         </li>
                         <li>
-                            <a href="deconectare.php">Deconectare</a>
+                            <a href="deconectare.php"><i class="fa fa-power-off" aria-hidden="true"></i> Deconectare</a>
                         </li>
                     </ul>
                 </div>
@@ -95,10 +95,10 @@ if(empty($_SESSION['id'])){
                 <div>
                     <ul class="nav navbar-nav pull-right">
                            <li>
-                            <a href="rezervare.php">Rezervare</a>
+                            <a href="rezervare.php"><i class="fa fa-address-book-o" aria-hidden="true"></i> Rezervare</a>
                         </li>
                         <li>
-                            <a href="deconectare.php">Deconectare</a>
+                            <a href="deconectare.php"><i class="fa fa-power-off" aria-hidden="true"></i> Deconectare</a>
                         </li>
                     </ul>
                 </div>
