@@ -96,8 +96,8 @@ if(isset($_POST['rezerva'])){
     $sql1 = "UPDATE carte SET nr_carti ='$stoc_nou' WHERE id_c = '$id_c'";
     $res1 = mysqli_query($connect, $sql1) or die(mysqli_error());
     
-    $sql2 = "INSERT INTO rezervare (id_u, id_c, data_rez, data_exp, data_add)"
-            . " VALUES('$utilizator','$id_c', DATE(NOW()),DATE(ADDDATE(NOW(), INTERVAL 3 WEEK)),NOW())";
+    $sql2 = "INSERT INTO rezervare (id_u, id_c, data_rez, data_add)"
+            . " VALUES('$utilizator','$id_c', DATE(NOW()),NOW())";
     $res2 = mysqli_query($connect, $sql2)or die(mysqli_error());
     
     
