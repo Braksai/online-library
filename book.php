@@ -49,8 +49,8 @@ include_once 'header.php';
             </table>
             <p style="margin-top: 30px; text-align: justify; font-size: 16px;"><?php echo $book['descriere']; ?></p>
             <div class="row col-lg-12">
-                <a href="index.php">
-                    <button class="btn btn-default pull-left"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Inapoi</button>
+                <a href="index.php" class="btn btn-default pull-left">
+                    <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Inapoi
                 </a>
             </div>
         </div>
