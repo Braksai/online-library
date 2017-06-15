@@ -6,7 +6,7 @@ include_once 'connect.php';
         <tr><td>Nr. Crt</td><td>Titlu</td><td>Autor</td><td>Data rezervarii</td><td>Data expirare</td><td>Stare</td></tr>
 <?php
 $utilizator = $_SESSION['id'];
- $sql = "SELECT c.titlu, c.autor, r.data_rez, r.data_exp,c.status FROM carte c 
+ $sql = "SELECT c.titlu, c.autor, r.data_rez, r.data_exp, r.status FROM carte c 
         INNER JOIN rezervare r ON r.id_c = c.id_c 
         INNER JOIN utilizatori u ON r.id_u = u.id_u
         WHERE r.id_u = '$utilizator'";
@@ -14,7 +14,7 @@ $utilizator = $_SESSION['id'];
  $crt = 1;
  while($row= mysqli_fetch_assoc ($res)){
      
-     if($row['stare'] == 'nereturnat'){
+     if($row['status'] == 'nereturnat'){
          echo " <tr style='background-color:red;'><td>'$crt'</td>"
                  . "<td>".$row['titlu']."</td>"
                  . "<td>".$row['autor']."</td>"
