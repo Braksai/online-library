@@ -20,9 +20,11 @@ include_once 'header.php';
             <img class="book-view" src="images/<?php echo $book['poza']; ?>" alt="">
             <p class="mt15 alert alert-info text-center"><i class="fa fa-info-circle" aria-hidden="true"></i> Nr. carti disponibile: <span><?php echo $book['nr_carti']; ?></span></p>
             <?php if ($book['nr_carti'] <= 0) { ?>
-                <button class="btn btn-lg btn-default" href="rezerva.php" style='width: 100%;' disabled>Rezerva</button>
+                <button class="btn btn-lg btn-default" style='width: 100%;' disabled>Rezerva</button>
             <?php } else { ?>
-                <button class="btn btn-lg btn-default" href="rezerva.php" style='width: 100%;'>Rezerva</button>
+                <a href="rezerva.php">
+                    <button class="btn btn-lg btn-default" style='width: 100%;'>Rezerva</button>
+                </a>
             <?php } ?>
         </div>
         <div class="right-description col-lg-8">
@@ -43,6 +45,11 @@ include_once 'header.php';
                 </tbody>
             </table>
             <p style="margin-top: 30px; text-align: justify; font-size: 16px;"><?php echo $book['descriere']; ?></p>
+            <div class="row col-lg-12">
+                <a href="index.php">
+                    <button class="btn btn-default pull-left"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Inapoi</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
