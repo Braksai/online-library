@@ -104,7 +104,7 @@ if(isset($_POST['btn-login'])){
         $id_u = $_SESSION['id'];
 
         if(mysqli_num_rows($sql)>0){
-            header("Location: index.php?utilizator=$utilizator&id=$id_u");
+            header("Location: index.php");
         }else{
             ?>
             <script>
