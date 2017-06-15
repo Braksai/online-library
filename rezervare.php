@@ -6,7 +6,7 @@ include_once 'connect.php';
         <tr><td>Nr. Crt</td><td>Titlu</td><td>Autor</td><td>Data rezervarii</td><td>Data expirare</td><td>Stare</td></tr>
 <?php
 $utilizator = $_SESSION['id'];
- $sql = "SELECT c.titlu, c.autor, r.data_rez, r.data_exp,c.stare FROM carte c 
+ $sql = "SELECT c.titlu, c.autor, r.data_rez, r.data_exp,c.status FROM carte c 
         INNER JOIN rezervare r ON r.id_c = c.id_c 
         INNER JOIN utilizatori u ON r.id_u = u.id_u
         WHERE r.id_u = '$utilizator'";
@@ -20,7 +20,7 @@ $utilizator = $_SESSION['id'];
                  . "<td>".$row['autor']."</td>"
                  . "<td>".$row['data_rez']."</td>"
                  . "<td>".$row['data_exp']."</td>"
-                 . "<td>".$row['stare']."</td>"
+                 . "<td>".$row['status']."</td>"
                  . "</tr>";
      }else{
           echo " <tr'><td>$crt</td>"
@@ -28,7 +28,7 @@ $utilizator = $_SESSION['id'];
                  . "<td>".$row['autor']."</td>"
                  . "<td>".$row['data_rez']."</td>"
                  . "<td>".$row['data_exp']."</td>"
-                  . "<td>".$row['stare']."</td>"
+                  . "<td>".$row['status']."</td>"
                  . "</tr>";
      }
      $crt = $crt + 1;
