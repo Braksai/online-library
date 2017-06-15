@@ -31,12 +31,12 @@ include_once 'header.php';
 
             <div class="row" style="margin-top: 30px;">
                 <?php
-                 $sql_query="SELECT titlu, poza FROM carte";
+                 $sql_query="SELECT id_c, titlu, poza FROM carte";
                  $result_set=mysqli_query($connect, $sql_query);
                  while($row= mysqli_fetch_assoc ($result_set))
                  {?>
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <a class="thumbnail" href="#">
+                    <a class="thumbnail" href="book.php?id_c=<?php echo $row['id_c']; ?>">
                         <img class="img-responsive book" src="images/<?php echo $row['poza']; ?>" alt="">
                         <p class="title-book truncate"><?php echo $row['titlu'];?></p>
                     </a>

@@ -43,6 +43,14 @@ body {
     background: #eeeff7;
 }
 
+.mt15 {
+    margin-top: 15px;
+}
+
+.text-center {
+    text-align: center;
+}
+
 .book {
     margin-top: 15px;
     width: 140px;
@@ -59,6 +67,16 @@ body {
     -moz-filter: sepia(1);
     -o-filter: sepia(1);
     -ms-filter: sepia(1);
+}
+
+.book-view {
+    width: 100%;//340px;
+    height: 415px;
+    min-height: 415px;
+    max-height: 415px;
+    border: 1px solid; 
+    border-radius:25px; 
+    border-style:outset;
 }
 
 .title-book {
@@ -138,6 +156,37 @@ img, a img {
   text-overflow: ellipsis;
 }
 
+.book-description {
+    display: block;
+    padding: 30px 35px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 600px;
+}
+
+.left-description {
+    width: 340px;
+    height: 500px;
+    float: left;
+}
+
+.right-description {
+    float: left;
+    padding-left: 30px;
+}
+
+.right-description-top {
+    font-size: 20px;
+    
+}
+
+.right-description-top > td {
+    padding: 6px 0;
+}
+
 /* styles for '...' */ 
 .block-with-text {
   /* hide text if it more than N lines  */
@@ -205,4 +254,16 @@ img, a img {
 
 .form-signin .form-signin-heading {
     color: #00A2D1;
+}
+
+/*body {
+    padding-top: 70px; 
+}*/
+
+.thumb {
+    margin-bottom: 30px;
+}
+
+footer {
+    margin: 50px 0;
 }
