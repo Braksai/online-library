@@ -47,6 +47,11 @@ body {
     background-color: #232a34!important;
 }
 
+.active.active-btn-pagination > a {
+    background-color: #232a34!important;
+    border-color: #232a34!important;
+}
+
 .mt15 {
     margin-top: 15px;
 }
