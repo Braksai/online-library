@@ -27,7 +27,7 @@ $query = mysqli_query($connect, $sql);
 $row = mysqli_fetch_row($query);
 $rows = $row[0];
 if($rows > 0) {
-    $page_rows = 2;// numar de carti vizualizate per pagina
+    $page_rows = 4;// numar de carti vizualizate per pagina
     $last = ceil($rows/$page_rows);
     if($last < 1){
         $last = 1;
@@ -95,7 +95,7 @@ if($rows > 0) {
 
 
 <!-- Page Content -->
-<div class="container">
+<div class="container" style="min-height: 720px;">
 
     <div class="row">
         <form action="" id="search-book" method="GET" accept-charset="UTF-8">
@@ -117,33 +117,16 @@ if($rows > 0) {
         </form>
     </div>
     <?php if ($messageErrorNoBooks) { ?>
-        <div class="row" style="margin-top: 30px;">
+        <div class="row mt30">
             <p class="mt15 alert alert-warning text-center" style="width: 300px; margin: 0 auto;"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php echo $messageErrorNoBooks;?></p>
         </div>
-    <?php } ?>
-    <div class="row" style="margin-top: 30px;">
+    <?php } else { ?>
+    <div class="row mt30">
         <?php echo $list;?>
     </div>
     <div class="row text-center"><?php echo $paginationStructure; ?></div>
-    <div class="row text-center"><?php echo $texthelper2.' , '.$texthelper1; ?></div>
+    <div class="row text-center mb15"><?php echo $texthelper2.' , '.$texthelper1; ?></div>
+    <?php } ?>
 </div>
 
-<footer style="background: #232a34; height: 100px; margin: 0px; color: #fff; text-align: center; ">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; EBiblioUTCN</p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-
-</body>
-
-
-</html>
+<?php include_once 'footer.php';

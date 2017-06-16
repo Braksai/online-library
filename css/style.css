@@ -56,6 +56,13 @@ body {
     margin-top: 15px;
 }
 
+.mt30 {
+    margin-top: 30px;
+}
+
+.mb15 {
+    margin-bottom: 15px;
+}
 .text-center {
     text-align: center;
 }
@@ -272,9 +279,21 @@ img, a img {
     margin-bottom: 30px;
 }
 
-footer {
-    margin: 50px 0;
+.footer {
+/*    position: absolute;
+    bottom: 0;*/
+    width: 100%;
+    height: 60px;
+    background: #232a34;
+    color: #fff; 
+    text-align: center;
 }
+
+.footer-message {
+    padding: 20px;
+    margin-bottom: 0px;
+}
+
 .butoane_stanga{
     width:10%;
     border:2px solid black;

@@ -7,7 +7,7 @@ include_once 'header.php';
 
 
 <!-- Page Content -->
-<div class="container">
+<div class="container" style="min-height: 720px;">
 
     <div class="row book-description" style="margin-top: 30px;">
         <?php
@@ -57,31 +57,12 @@ include_once 'header.php';
     </div>
 </div>
 </form>
-<footer style="background: #232a34; height: 100px; margin: 0px; color: #fff; text-align: center; ">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; EBiblioUTCN</p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-
-</body>
-
-
-</html> 
+<?php include_once 'footer.php';?>
 <?php
 if(isset($_POST['rezerva'])){
     $id_c = mysqli_real_escape_string($connect, $_POST['id_c']);
     $stoc = mysqli_real_escape_string($connect, $_POST['stoc']);
     $utilizator = $_SESSION['id'];
-    
     
     if($stoc <= 0 ){
            ?>
@@ -99,9 +80,7 @@ if(isset($_POST['rezerva'])){
     $sql2 = "INSERT INTO rezervare (id_u, id_c, data_rez, data_add)"
             . " VALUES('$utilizator','$id_c', DATE(NOW()),NOW())";
     $res2 = mysqli_query($connect, $sql2)or die(mysqli_error());
-    
-    
-    
+
     if($res1 AND $res2){
         ?>
             <script>
