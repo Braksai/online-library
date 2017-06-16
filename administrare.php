@@ -48,7 +48,7 @@ if(isset($_POST['adauga2'])){
     
     
     if((empty($titlu)) OR (empty($descriere)) OR (empty($editura)) OR (empty($autor))
-            OR (empty($poza)) OR (empty($data_publicarii)) OR (empty($carti))){
+            OR (empty($data_publicarii)) OR (empty($carti))){
         ?>
             <script>
                 window.location = 'administrare.php';
@@ -76,6 +76,117 @@ if(isset($_POST['adauga2'])){
 <?php
         }
     }
+}
+
+
+if(isset($_POST['sterge'])){
+    
+    $sql = "SELECT * FROM carte WHERE sters <> 1 ORDER BY data_ad ASC ";
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    
+    echo "<div class='adauga'><center>"
+            . "<h3>Formular stergere carte</h3>";
+    echo "<table border='0' style='width:90%;'>"
+    . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Autor</th><th>Editura</th><th>Data publicarii</th><th></th></tr>";
+    $crt = 1;
+    while($row = mysqli_fetch_array($res)){
+        $id_c = $row['id_c'];
+        $titlu = $row['titlu'];
+        $autor = $row['autor'];
+        $editura = $row['editura'];
+        $data_publicarii = $row['data_publicarii'];
+        
+        echo "<tr style='margin-top:2%;'>"
+        . "<td>$crt</td>"
+                . "<td>$titlu</td>"
+                . "<td>$autor</td>"
+                . "<td>$editura</td>"
+                . "<td>$data_publicarii</td>"
+                . "<td><form action='' method='POST'>"
+                . "<input type='text' name='id_c' value='$id_c' hidden/>"
+                . "<button name='sterge2' >Sterge</button>"
+                . "</form></th></tr>";
+        
+        $crt = $crt + 1;
+    }
+    echo "</table><br><br></div><br><br>";
+}
+
+if(isset($_POST['sterge2'])){
+    $id_c = mysqli_real_escape_string($connect, $_POST['id_c']);
+    
+    $sql = "UPDATE carte SET sters = '1' WHERE id_c = '$id_c'";
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    
+    if($res){
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Stergerea a fost realizata cu succes!');
+            </script>
+<?php
+        }else{
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Eroare la stergerea unei carti!');
+            </script>
+<?php
+        }
+}
+
+if(isset($_POST['utilizatori'])){
+      echo "<div class='adauga'><center>"
+            . "<h3>Utilizatori</h3>";
+      
+      $sql = "SELECT * FROM utilizatori ORDER BY nume, prenume ASC";
+      $res = mysqli_query($connect, $sql)or die(mysqli_error());
+      
+      echo "<table border='0' style='width:90%;'>"
+    . "<tr><th>Nr. Crt</th><th>Nume Prenume</th><th>Email</th><th>Utilizator</th><th>Telefon</th><th></th></tr>";
+    $crt = 1;
+    
+    while($row = mysqli_fetch_array($res)){
+        $nume = $row['nume'].' '.$row['prenume'];
+        $email = $row['email'];
+        $utilizator = $row['utilizator'];
+        $telefon = $row['telefon'];
+        $id_u = $row['id_u'];
+        
+        echo "<tr><td>$crt</td>"
+                . "<td>$nume</td>"
+                . "<td>$email</td>"
+                . "<td>$utilizator</td>"
+                . "<td>$telefon</td>"
+                . "<form action='' method='POST'>"
+                . "<input type='text' name='id_u' value='$id_u' hidden/>"
+                . "<th><button name='sterge3'>Sterge</button></th></tr>";
+        $crt = $crt + 1;
+    }
+    echo "<table><br><br></div><br><br>";
+}
+
+if(isset($_POST['sterge3'])){
+    $id_u = mysqli_real_escape_string($connect, $_POST['id_u']);
+    
+    $sql = "UPDATE utilizatori SET sters = '1' WHERE id_u = '$id_u'";
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    
+    if($res){
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Stergerea a fost realizata cu succes!');
+            </script>
+<?php
+        }else{
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Eroare la stergerea unui utilizator!');
+            </script>
+<?php
+        }
 }
 ?>
 
