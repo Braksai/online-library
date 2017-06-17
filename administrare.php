@@ -105,7 +105,7 @@ if(isset($_POST['sterge'])){
                 . "<td><form action='' method='POST'>"
                 . "<input type='text' name='id_c' value='$id_c' hidden/>"
                 . "<button name='sterge2' >Sterge</button>"
-                . "</form></th></tr>";
+                . "</form></td></tr>";
         
         $crt = $crt + 1;
     }
@@ -139,10 +139,10 @@ if(isset($_POST['utilizatori'])){
       echo "<div class='adauga'><center>"
             . "<h3>Utilizatori</h3>";
       
-      $sql = "SELECT * FROM utilizatori ORDER BY nume, prenume ASC";
+      $sql = "SELECT * FROM utilizatori WHERE sters is null ORDER BY nume, prenume ASC";
       $res = mysqli_query($connect, $sql)or die(mysqli_error());
       
-      echo "<table border='0' style='width:90%;'>"
+      echo "<form action='' method='POST'><table border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Nume Prenume</th><th>Email</th><th>Utilizator</th><th>Telefon</th><th></th></tr>";
     $crt = 1;
     
@@ -158,12 +158,14 @@ if(isset($_POST['utilizatori'])){
                 . "<td>$email</td>"
                 . "<td>$utilizator</td>"
                 . "<td>$telefon</td>"
-                . "<form action='' method='POST'>"
+                . "<td><form action='' method='POST'>"
                 . "<input type='text' name='id_u' value='$id_u' hidden/>"
-                . "<th><button name='sterge3'>Sterge</button></th></tr>";
+                . "<button name='sterge3' >Sterge</button>"
+                . "</form></td></tr>";
+        echo "";
         $crt = $crt + 1;
     }
-    echo "<table><br><br></div><br><br>";
+    echo "</form><table><br><br></div><br><br>";
 }
 
 if(isset($_POST['sterge3'])){
@@ -184,6 +186,282 @@ if(isset($_POST['sterge3'])){
             <script>
                 window.location = 'administrare.php';
                 alert('Eroare la stergerea unui utilizator!');
+            </script>
+<?php
+        }
+}
+
+
+if(isset($_POST['rezervari'])){
+    echo "<div class='adauga' style='width:75%;'><center>"
+            . "<h3>Gestionare rezervari</h3>";
+    echo "<div class='in_curs'>"
+    . "<p>Carti in curs de rezervare</p>"
+            . "<table border='0' style='width:90%;'>"
+    . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
+    
+    $sql = "SELECT c.titlu, c.editura, c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
+            . "INNER JOIN carte c ON r.id_c = c.id_c "
+            . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
+            . " WHERE r.status is null";
+
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    $crt = 1;
+    while($row = mysqli_fetch_array($res)){
+        $titlu = $row['titlu'];
+        $editura = $row['editura'];
+        $autor = $row['autor'];
+        $data_rez = $row['data_rez'];
+        $utilizator = $row['nume'].' '.$row['prenume'];
+        $id_c = $row['id_c'];
+        $id_u = $row['id_u'];
+        $id_r = $row['id_r'];
+         
+        
+       echo "<tr><td>$crt</td>"
+        . "<td>$titlu</td>"
+               . "<td>$editura</td>"
+               . "<td>$autor</td>"
+               . "<td>$data_rez</td>"
+               . "<td>$utilizator</td>"
+               . "<form action='' method='POST'>"
+               . "<input type='text' name='id_r' value='$id_r' hidden/>"
+               . "<td><button name='aproba'>Aproba</button></td></form></tr>" ;
+       $crt = $crt + 1;
+    }
+    
+            echo "</table><br></div><br><br>";
+            
+            
+           
+    echo "<div class='nereturnat'>"
+    . "<p>Carti nereturnate</p>"
+            . "<table border='0' style='width:90%;'>"
+    . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
+    
+    $sql = "SELECT c.titlu, c.editura, c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
+            . "INNER JOIN carte c ON r.id_c = c.id_c "
+            . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
+            . " WHERE r.data_exp >  DATE(NOW()) AND r.status = 'rezervat'";
+
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    $crt = 1;
+    while($row = mysqli_fetch_array($res)){
+        $titlu = $row['titlu'];
+        $editura = $row['editura'];
+        $autor = $row['autor'];
+        $data_rez = $row['data_rez'];
+        $utilizator = $row['nume'].' '.$row['prenume'];
+        $id_c = $row['id_c'];
+        $id_u = $row['id_u'];
+        $id_r = $row['id_r'];
+         
+        
+       echo "<tr><td>$crt</td>"
+        . "<td>$titlu</td>"
+               . "<td>$editura</td>"
+               . "<td>$autor</td>"
+               . "<td>$data_rez</td>"
+               . "<td>$utilizator</td>"
+               . "<form action='' method='POST'>"
+               . "<input type='text' name='id_r' value='$id_r' hidden/>"
+               . "<td><button name='nereturnat'>Nereturnat</button></td></form></tr>" ;
+       $crt = $crt + 1;
+    }
+    
+            echo "</table><br></div><br><br>";
+    
+      echo "<div class='rezervate'>"
+    . "<p>Carti imprumutate</p>"
+            . "<table border='0' style='width:90%;'>"
+    . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
+    
+    $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
+            . "INNER JOIN carte c ON r.id_c = c.id_c "
+            . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
+            . " WHERE r.data_exp <=  DATE(NOW()) AND r.status = 'rezervat'";
+
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    $crt = 1;
+    while($row = mysqli_fetch_array($res)){
+        $titlu = $row['titlu'];
+        $editura = $row['editura'];
+        $autor = $row['autor'];
+        $data_rez = $row['data_rez'];
+        $utilizator = $row['nume'].' '.$row['prenume'];
+        $id_c = $row['id_c'];
+        $carti = $row['nr_carti'];
+        $id_u = $row['id_u'];
+        $id_r = $row['id_r'];
+         
+        
+       echo "<tr><td>$crt</td>"
+        . "<td>$titlu</td>"
+               . "<td>$editura</td>"
+               . "<td>$autor</td>"
+               . "<td>$data_rez</td>"
+               . "<td>$utilizator</td>"
+               . "<form action='' method='POST'>"
+               . "<input type='text' name='id_r' value='$id_r' hidden/>"
+               . "<input type='text' name='id_c' value='$id_c' hidden/>"
+               . "<input type='text' name='carti' value='$carti' hidden/>"
+               . "<td><button name='returnat'>Returnare</button></td></form></tr>" ;
+       $crt = $crt + 1;
+    }
+    
+            echo "</table><br></div><br><br>";    
+            
+     echo "<div class='expirate'>"
+    . "<p>Carti expirate</p>"
+            . "<table border='0' style='width:90%;'>"
+    . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
+    
+    $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
+            . "INNER JOIN carte c ON r.id_c = c.id_c "
+            . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
+            . " WHERE r.data_exp >  DATE(NOW()) AND r.status = 'nereturnat'";
+
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    $crt = 1;
+    while($row = mysqli_fetch_array($res)){
+        $titlu = $row['titlu'];
+        $editura = $row['editura'];
+        $autor = $row['autor'];
+        $data_rez = $row['data_rez'];
+        $utilizator = $row['nume'].' '.$row['prenume'];
+        $id_c = $row['id_c'];
+        $carti = $row['nr_carti'];
+        $id_u = $row['id_u'];
+        $id_r = $row['id_r'];
+         
+        
+       echo "<tr><td>$crt</td>"
+        . "<td>$titlu</td>"
+               . "<td>$editura</td>"
+               . "<td>$autor</td>"
+               . "<td>$data_rez</td>"
+               . "<td>$utilizator</td>"
+               . "<form action='' method='POST'>"
+               . "<input type='text' name='id_r' value='$id_r' hidden/>"
+               . "<input type='text' name='id_c' value='$id_c' hidden/>"
+               . "<input type='text' name='carti' value='$carti' hidden/>"
+               . "<td><button name='returnat'>Returnare</button></td></form></tr>" ;
+       $crt = $crt + 1;
+    }
+    
+            echo "</table><br></div><br><br>";         
+          
+            
+              echo "<div class='returnate'>"
+    . "<p>Carti returnate</p>"
+            . "<table border='0' style='width:90%;'>"
+    . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th></tr>";
+    
+    $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
+            . "INNER JOIN carte c ON r.id_c = c.id_c "
+            . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
+            . " WHERE  r.status = 'returnat'";
+
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    $crt = 1;
+    while($row = mysqli_fetch_array($res)){
+        $titlu = $row['titlu'];
+        $editura = $row['editura'];
+        $autor = $row['autor'];
+        $data_rez = $row['data_rez'];
+        $utilizator = $row['nume'].' '.$row['prenume'];
+        $id_c = $row['id_c'];
+        $carti = $row['nr_carti'];
+        $id_u = $row['id_u'];
+        $id_r = $row['id_r'];
+         
+        
+       echo "<tr><td>$crt</td>"
+        . "<td>$titlu</td>"
+               . "<td>$editura</td>"
+               . "<td>$autor</td>"
+               . "<td>$data_rez</td>"
+               . "<td>$utilizator</td>"
+               ."</tr>" ;
+       
+       $crt = $crt + 1;
+    }
+    
+            echo "</table><br></div><br><br>";  
+    echo "</div><br><br></center><br>";
+}
+
+if(isset($_POST['aproba'])){
+    $id_r = mysqli_real_escape_string($connect, $_POST['id_r']);
+    
+    
+    $sql = "UPDATE rezervare SET data_exp = DATE(adddate(NOW(), INTERVAL 3 week)), status = 'rezervat' WHERE id_r = '$id_r'";
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    
+    if($res){
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Cartea a fost aprobata cu succes!');
+            </script>
+<?php
+        }else{
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Eroare la imprumutarea carti!');
+            </script>
+<?php
+        }
+}
+
+if(isset($_POST['nereturnat'])){
+    $id_r = mysqli_real_escape_string($connect, $_POST['id_r']);
+    
+    
+    $sql = "UPDATE rezervare SET  status = 'nereturnat' WHERE id_r = '$id_r'";
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    
+    if($res){
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Statusul a fost schimbat cu succes!');
+            </script>
+<?php
+        }else{
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Eroare la schimbarea statusului!');
+            </script>
+<?php
+        }
+}
+
+if(isset($_POST['returnat'])){
+    $id_r = mysqli_real_escape_string($connect, $_POST['id_r']);
+    $id_c = mysqli_real_escape_string($connect, $_POST['id_c']);
+    $carti = mysqli_real_escape_string($connect, $_POST['carti']);
+    
+    $carti_nou = $carti + 1;
+    $sql = "UPDATE rezervare SET  status = 'returnat' WHERE id_r = '$id_r'";
+    $sql2 = "UPDATE carte SET nr_carti = '$carti_nou' WHERE id_c = '$id_c'";
+    $res = mysqli_query($connect, $sql)or die(mysqli_error());
+    $res2 = mysqli_query($connect, $sql2)or die(mysqli_error());
+    
+    if($res AND $res2){
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Statusul a fost schimbat cu succes!');
+            </script>
+<?php
+        }else{
+            ?>
+            <script>
+                window.location = 'administrare.php';
+                alert('Eroare la schimbarea statusului!');
             </script>
 <?php
         }

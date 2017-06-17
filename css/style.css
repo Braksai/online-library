@@ -308,3 +308,23 @@ img, a img {
     border:2px solid black;
     padding:5px;
 }
+.in_curs{
+    width:95%;
+    border:2px solid green;
+}
+.nereturnat{
+    width:95%;
+    border:2px solid yellow;
+}
+.rezervate{
+     width:95%;
+    border:2px solid blue;
+}
+.expirate{
+   width:95%;
+    border:2px solid red; 
+}
+.returnate{
+    width:95%;
+    border:2px solid silver;
+}
