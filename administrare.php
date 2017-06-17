@@ -203,7 +203,7 @@ if(isset($_POST['rezervari'])){
     $sql = "SELECT c.titlu, c.editura, c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
             . "INNER JOIN carte c ON r.id_c = c.id_c "
             . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
-            . " WHERE r.status is null";
+            . " WHERE r.status = 'rezervat' AND r.sters = 0";
 
     $res = mysqli_query($connect, $sql)or die(mysqli_error());
     $crt = 1;
@@ -242,7 +242,7 @@ if(isset($_POST['rezervari'])){
     $sql = "SELECT c.titlu, c.editura, c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
             . "INNER JOIN carte c ON r.id_c = c.id_c "
             . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
-            . " WHERE r.data_exp >  DATE(NOW()) AND r.status = 'rezervat'";
+            . " WHERE r.data_exp <= DATE(NOW()) AND r.status = 'imprumutat'";
 
     $res = mysqli_query($connect, $sql)or die(mysqli_error());
     $crt = 1;
@@ -279,7 +279,7 @@ if(isset($_POST['rezervari'])){
     $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
             . "INNER JOIN carte c ON r.id_c = c.id_c "
             . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
-            . " WHERE r.data_exp <=  DATE(NOW()) AND r.status = 'rezervat'";
+            . " WHERE r.data_exp >=  DATE(NOW()) AND r.status = 'imprumutat'";
 
     $res = mysqli_query($connect, $sql)or die(mysqli_error());
     $crt = 1;
@@ -319,7 +319,7 @@ if(isset($_POST['rezervari'])){
     $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
             . "INNER JOIN carte c ON r.id_c = c.id_c "
             . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
-            . " WHERE r.data_exp >  DATE(NOW()) AND r.status = 'nereturnat'";
+            . " WHERE r.data_exp <= DATE(NOW()) AND r.status = 'nereturnat'";
 
     $res = mysqli_query($connect, $sql)or die(mysqli_error());
     $crt = 1;
@@ -341,11 +341,12 @@ if(isset($_POST['rezervari'])){
                . "<td>$autor</td>"
                . "<td>$data_rez</td>"
                . "<td>$utilizator</td>"
-               . "<form action='' method='POST'>"
-               . "<input type='text' name='id_r' value='$id_r' hidden/>"
+               . "<td><form action='' method='POST'>"
+                . "<input type='text' name='id_r' value='$id_r' hidden/>"
                . "<input type='text' name='id_c' value='$id_c' hidden/>"
                . "<input type='text' name='carti' value='$carti' hidden/>"
-               . "<td><button name='returnat'>Returnare</button></td></form></tr>" ;
+                . "<button name='returnat' >Returnare</button>"
+                . "</form></td></tr>" ;
        $crt = $crt + 1;
     }
     
@@ -395,7 +396,7 @@ if(isset($_POST['aproba'])){
     $id_r = mysqli_real_escape_string($connect, $_POST['id_r']);
     
     
-    $sql = "UPDATE rezervare SET data_exp = DATE(adddate(NOW(), INTERVAL 3 week)), status = 'rezervat' WHERE id_r = '$id_r'";
+    $sql = "UPDATE rezervare SET data_exp = DATE(adddate(NOW(), INTERVAL 3 week)), status = 'imprumutat' WHERE id_r = '$id_r'";
     $res = mysqli_query($connect, $sql)or die(mysqli_error());
     
     if($res){
