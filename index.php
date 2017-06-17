@@ -17,7 +17,7 @@ if(isset($_GET['search'])){
     $min_length = 3;
     if(strlen($querySearch) >= $min_length){
         $querySearch = htmlspecialchars($querySearch); 
-        $querySearch = mysql_real_escape_string($querySearch);
+        $querySearch = mysqli_real_escape_string($connect, $querySearch);
         $urlParamSearch = empty($querySearch) ? '': 'search='.$querySearch.'&';
         $whereSearch = "AND titlu LIKE '%".$querySearch."%'";
     }
