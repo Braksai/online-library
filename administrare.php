@@ -10,7 +10,7 @@ include_once 'header.php';
         <center>
         <table border='0' style='width:80%;'>
             <tr><td style='padding:5px;'><button name='adauga' style='width:100%;'>Adauga carte</button></td></tr>
-            <tr><td style='padding:5px;'><button name='sterge' style='width:100%;'>Sterge carte</button></td></tr>
+            <tr><td style='padding:5px;'><button name='sterge' style='width:100%;'>Carti</button></td></tr>
             <tr><td style='padding:5px;'><button name='utilizatori' style='width:100%;'>Utilizatori</button></td></tr>
             <tr><td style='padding:5px;'><button name='rezervari' style='width:100%;'>Rezervari</button></td></tr>
         </table></center>
