@@ -203,7 +203,7 @@ if(isset($_POST['rezervari'])){
     $sql = "SELECT c.titlu, c.editura, c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
             . "INNER JOIN carte c ON r.id_c = c.id_c "
             . "INNER JOIN utilizatori u ON u.id_u = r.id_u"
-            . " WHERE r.status = ''";
+            . " WHERE r.status is null";
 
     $res = mysqli_query($connect, $sql)or die(mysqli_error());
     $crt = 1;
