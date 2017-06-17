@@ -20,7 +20,7 @@ include_once 'header.php';
             <input type="text" name="id_c" value="<?php echo $book['id_c']; ?>" hidden/>
             <input type="text" name="stoc" value="<?php echo $book['nr_carti']; ?>" hidden/>
         <div class="left-description col-lg-4">
-            <img class="book-view" src="images/<?php echo $book['poza']; ?>" alt="">
+            <img class="book-view" src="images/<?php echo !empty($book['poza']) ? $book['poza'] : 'book-default-image.jpg' ?>" alt="">
             <p class="mt15 alert alert-info text-center"><i class="fa fa-info-circle" aria-hidden="true"></i> Nr. carti disponibile: <span><?php echo $book['nr_carti']; ?></span></p>
             <?php if ($book['nr_carti'] <= 0 OR (empty($_SESSION['id']))) { ?>
                 <button class="btn btn-lg btn-default" style='width: 100%;' disabled>Rezerva</button>

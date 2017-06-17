@@ -77,7 +77,9 @@ if($rows > 0) {
         $list.=
         '<div class="col-lg-3 col-md-4 col-xs-6 thumb">
             <a class="thumbnail" href="book.php?id_c='.$id.'">
-                <img class="img-responsive book" src="images/'.$poza.'" alt="">
+                <img class="img-responsive book" src="images/';
+        $list.= !empty($poza) ? $poza : 'book-default-image.jpg'; 
+        $list.='" alt="">
                 <p class="title-book truncate">'.$titlu.'</p>
             </a>
         </div>';
