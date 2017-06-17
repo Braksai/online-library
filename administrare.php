@@ -19,7 +19,7 @@ include_once 'header.php';
 <?php
 if(isset($_POST['adauga'])){
     
-    echo "<form action='' method='POST'>"
+    echo "<form action='' method='POST' enctype='multipart/form-data'>"
     . "<div class='adauga'><center>"
             . "<h3>Formular adaugare carte</h3>"
             
@@ -28,7 +28,7 @@ if(isset($_POST['adauga'])){
             . "<tr><th style='padding:1%;'>Descriere </th><td><textarea name='descriere' cols='10' rows='10' style='width:100%;'></textarea></td></tr>"
             . "<tr><th style='padding:1%;'>Editura</th><td><input type='text' name='editura' style='width:100%;'/></td></tr>"
             . "<tr><th style='padding:1%;'>Autor</th><td><input type='text' name='autor' style='width:100%;'/></td></tr>"
-            . "<tr><th style='padding:1%;'>Poza</th><td><input type='file' name='poza' style='width:100%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'>Poza</th><td><input type='file' name='poza' id='poza' style='width:100%;'/></td></tr>"
             . "<tr><th style='padding:1%;'>Data publicarii</th><td><input type='text' name='data_publicarii' style='width:100%;'/></td></tr>"
             . "<tr><th style='padding:1%;'>Nr. carti</th><td><input type='text' name='carti' style='width:100%;'/></td></tr>"
             . "<tr><th style='padding:1%;'></th><td><input type='submit' name='adauga2' value='Adauga carte' style='width:40%;'/></td></tr>"
@@ -42,13 +42,50 @@ if(isset($_POST['adauga2'])){
     $descriere = mysqli_real_escape_string($connect, $_POST['descriere']);
     $editura = mysqli_real_escape_string($connect, $_POST['editura']);
     $autor = mysqli_real_escape_string($connect, $_POST['autor']);
-    $poza = mysqli_real_escape_string($connect, $_POST['poza']);
     $data_publicarii = mysqli_real_escape_string($connect, $_POST['data_publicarii']);
     $carti = mysqli_real_escape_string($connect, $_POST['carti']);
     
+    //upload image
+    $errorMessageUpload = '';
+    $target_dir = "images/";
+    $target_file = $target_dir . basename($_FILES["poza"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $poza = mysqli_real_escape_string($connect, $_FILES["poza"]["name"]);
+    
+    $check = mysqli_real_escape_string($connect, basename($_FILES["poza"]["name"]));
+    if($check !== false) {
+        $uploadOk = 1;
+    } else {
+        $errorMessageUpload .= "File is not an image. ";
+        $uploadOk = 0;
+    }
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        $errorMessageUpload .= "Sorry, file already exists. ";
+        $uploadOk = 0;
+    }
+    // Check file size
+    if ($_FILES["poza"]["size"] > 500000) {
+        $errorMessageUpload .= "Sorry, your file is too large. ";
+        $uploadOk = 0;
+    }
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" 
+            && $imageFileType != "gif" ) {
+        $errorMessageUpload .= "Sorry, only JPG, JPEG, PNG & GIF files are allowed. ";
+        $uploadOk = 0;
+    }
+    
+    if($uploadOk == 0) {?>
+        <script>
+            var message = "<?php echo $errorMessageUpload;?>";
+            alert(message);
+        </script>
+    <?php }
     
     if((empty($titlu)) OR (empty($descriere)) OR (empty($editura)) OR (empty($autor))
-            OR (empty($data_publicarii)) OR (empty($carti))){
+            OR (empty($data_publicarii)) OR (empty($carti)) OR $uploadOk == 0 ){
         ?>
             <script>
                 window.location = 'administrare.php';
@@ -59,8 +96,17 @@ if(isset($_POST['adauga2'])){
         $sql = "INSERT INTO carte(titlu, descriere, editura, autor, poza, data_publicarii, nr_carti, data_ad) "
                 . "VALUES('$titlu', '$descriere','$editura','$autor','$poza','$data_publicarii', '$carti', NOW())";
         $res = mysqli_query($connect, $sql)or die(mysqli_error());
+        $resUpload = 0;
+        $errorMessageUpload2 = '';
         
-        if($res){
+        if (move_uploaded_file($_FILES["poza"]["tmp_name"], $target_file)) {
+            $resUpload = 1;
+        } else {
+            $resUpload = 0;
+            $errorMessageUpload2 .= "Sorry, there was an error uploading your file.";
+        }
+        
+        if($res && $resUpload == 1){
             ?>
             <script>
                 window.location = 'administrare.php';
@@ -71,7 +117,8 @@ if(isset($_POST['adauga2'])){
             ?>
             <script>
                 window.location = 'administrare.php';
-                alert('Eroare la adaugarea unei noi carti!');
+                var message2 = "<?php echo $errorMessageUpload2;?>";
+                alert('Eroare la adaugarea unei noi carti! ' + message2);
             </script>
 <?php
         }
