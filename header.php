@@ -11,7 +11,6 @@
 
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/thumbnail-gallery.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/style.css" type="text/css" rel="stylesheet">
     </head>
