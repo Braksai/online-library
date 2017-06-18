@@ -81,7 +81,7 @@ include_once 'connect.php';
 if(isset($_POST['btn-login'])){
     $utilizator = mysqli_real_escape_string($connect,$_POST['username']);
     $parola = mysqli_real_escape_string($connect,$_POST['pass']);
-
+    $parola = hash('sha256', $parola);
     if((empty($utilizator)) OR (empty($parola))){
         ?>
         <script>

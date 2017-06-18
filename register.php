@@ -129,6 +129,7 @@ if(isset($_POST['btn-login'])){
     $tel = mysqli_real_escape_string($connect, $_POST['tel']);
     $adresa = mysqli_real_escape_string($connect, $_POST['adresa']);
     $parola = mysqli_real_escape_string($connect, $_POST['pass']);
+    $parola = hash('sha256', $parola);
     
     $sql = "INSERT INTO utilizatori(nume, prenume, email, utilizator, telefon, adresa, parola, data_add) "
             . "VALUES('$nume','$prenume','$email','$username','$tel','$adresa','$parola', NOW()) ";
