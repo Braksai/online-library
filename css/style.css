@@ -165,7 +165,7 @@ img, a img {
     margin-bottom: 20px;
     line-height: 1.42857143;
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd!important;
     border-radius: 4px;
     min-height: 600px;
 }

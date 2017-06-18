@@ -2,17 +2,17 @@
 include_once 'connect.php';
 include_once 'header.php';
 ?>
-<body style="background-color: silver">
+<body style="background-color: #eeeff7;">
 <center><h3 style='margin-top:2%;'>Bun venit in pagina de administrare!</h3></center>
 
 <div class='butoane_stanga'>
     <form action='' method='POST'>
         <center>
         <table border='0' style='width:80%;'>
-            <tr><td style='padding:5px;'><button name='adauga' style='width:100%;'>Adauga carte</button></td></tr>
-            <tr><td style='padding:5px;'><button name='sterge' style='width:100%;'>Carti</button></td></tr>
-            <tr><td style='padding:5px;'><button name='utilizatori' style='width:100%;'>Utilizatori</button></td></tr>
-            <tr><td style='padding:5px;'><button name='rezervari' style='width:100%;'>Rezervari</button></td></tr>
+            <tr><td style='padding:5px;'><button class="btn btn-default" name='adauga' style='width:100%;'>Adauga carte</button></td></tr>
+            <tr><td style='padding:5px;'><button class="btn btn-default" name='sterge' style='width:100%;'>Carti</button></td></tr>
+            <tr><td style='padding:5px;'><button class="btn btn-default" name='utilizatori' style='width:100%;'>Utilizatori</button></td></tr>
+            <tr><td style='padding:5px;'><button class="btn btn-default" name='rezervari' style='width:100%;'>Rezervari</button></td></tr>
         </table></center>
     </form>
 </div>
@@ -20,18 +20,18 @@ include_once 'header.php';
 if(isset($_POST['adauga'])){
     
     echo "<form action='' method='POST' enctype='multipart/form-data'>"
-    . "<div class='adauga'><center>"
+    . "<div class='adauga book-description'><center>"
             . "<h3>Formular adaugare carte</h3>"
             
             . "<table border='0' style='width:60%;'>"
-            . "<tr><th style='padding:1%;'>Titlu</th><td><input type='text' name='titlu' style='width:100%;'/></td></tr>"
-            . "<tr><th style='padding:1%;'>Descriere </th><td><textarea name='descriere' cols='10' rows='10' style='width:100%;'></textarea></td></tr>"
-            . "<tr><th style='padding:1%;'>Editura</th><td><input type='text' name='editura' style='width:100%;'/></td></tr>"
-            . "<tr><th style='padding:1%;'>Autor</th><td><input type='text' name='autor' style='width:100%;'/></td></tr>"
-            . "<tr><th style='padding:1%;'>Poza</th><td><input type='file' name='poza' id='poza' style='width:100%;'/></td></tr>"
-            . "<tr><th style='padding:1%;'>Data publicarii</th><td><input type='text' name='data_publicarii' style='width:100%;'/></td></tr>"
-            . "<tr><th style='padding:1%;'>Nr. carti</th><td><input type='text' name='carti' style='width:100%;'/></td></tr>"
-            . "<tr><th style='padding:1%;'></th><td><input type='submit' name='adauga2' value='Adauga carte' style='width:40%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'>Titlu</th><td style='padding: 5px 0;'><input class='form-control' type='text' name='titlu' style='width:100%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'>Descriere </th><td style='padding: 5px 0;'><textarea class='form-control' name='descriere' cols='10' rows='10' style='width:100%;'></textarea></td></tr>"
+            . "<tr><th style='padding:1%;'>Editura</th><td style='padding: 5px 0;'><input class='form-control' type='text' name='editura' style='width:100%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'>Autor</th><td style='padding: 5px 0;'><input class='form-control' type='text' name='autor' style='width:100%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'>Poza</th><td style='padding: 5px 0;'><input type='file' name='poza' id='poza' style='width:100%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'>Data publicarii</th><td style='padding: 5px 0;'><input class='form-control' type='text' name='data_publicarii' style='width:100%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'>Nr. carti</th><td style='padding: 5px 0;'><input class='form-control' type='text' name='carti' style='width:100%;'/></td></tr>"
+            . "<tr><th style='padding:1%;'></th><td style='padding: 5px 0;'><input class='btn btn-default' type='submit' name='adauga2' value='Adauga carte' style='width:40%;'/></td></tr>"
             . "</table></center><br><br>"
             . "</div><br><br>"
     . "</form>";
@@ -131,9 +131,9 @@ if(isset($_POST['sterge'])){
     $sql = "SELECT * FROM carte WHERE sters <> 1 ORDER BY data_ad ASC ";
     $res = mysqli_query($connect, $sql)or die(mysqli_error());
     
-    echo "<div class='adauga'><center>"
-            . "<h3>Formular stergere carte</h3>";
-    echo "<table border='0' style='width:90%;'>"
+    echo "<div class='adauga book-description'><center>"
+            . "<h3>Lista carti</h3>";
+    echo "<table class='table table-condensed table-hover' border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Autor</th><th>Editura</th><th>Data publicarii</th><th></th></tr>";
     $crt = 1;
     while($row = mysqli_fetch_array($res)){
@@ -151,7 +151,7 @@ if(isset($_POST['sterge'])){
                 . "<td>$data_publicarii</td>"
                 . "<td><form action='' method='POST'>"
                 . "<input type='text' name='id_c' value='$id_c' hidden/>"
-                . "<button name='sterge2' >Sterge</button>"
+                . "<button class='btn btn-default' name='sterge2' ><i class='fa fa-times text-danger' aria-hidden='true'></i></button>"
                 . "</form></td></tr>";
         
         $crt = $crt + 1;
@@ -183,13 +183,13 @@ if(isset($_POST['sterge2'])){
 }
 
 if(isset($_POST['utilizatori'])){
-      echo "<div class='adauga'><center>"
+      echo "<div class='adauga book-description'><center>"
             . "<h3>Utilizatori</h3>";
       
       $sql = "SELECT * FROM utilizatori WHERE sters = '0' ORDER BY nume, prenume ASC";
       $res = mysqli_query($connect, $sql)or die(mysqli_error());
       
-      echo "<form action='' method='POST'><table border='0' style='width:90%;'>"
+      echo "<form action='' method='POST'><table class='table table-condensed table-hover' border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Nume Prenume</th><th>Email</th><th>Utilizator</th><th>Telefon</th><th></th></tr>";
     $crt = 1;
     
@@ -207,7 +207,7 @@ if(isset($_POST['utilizatori'])){
                 . "<td>$telefon</td>"
                 . "<td><form action='' method='POST'>"
                 . "<input type='text' name='id_u' value='$id_u' hidden/>"
-                . "<button name='sterge3' >Sterge</button>"
+                . "<button class='btn btn-default' name='sterge3' ><i class='fa fa-times text-danger' aria-hidden='true'></i></button>"
                 . "</form></td></tr>";
         echo "";
         $crt = $crt + 1;
@@ -240,11 +240,11 @@ if(isset($_POST['sterge3'])){
 
 
 if(isset($_POST['rezervari'])){
-    echo "<div class='adauga' style='width:75%;'><center>"
+    echo "<div class='adauga book-description' style='width:75%;'><center>"
             . "<h3>Gestionare rezervari</h3>";
     echo "<div class='in_curs'>"
     . "<p>Carti in curs de rezervare</p>"
-            . "<table border='0' style='width:90%;'>"
+            . "<table class='table table-condensed table-hover' border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
     
     $sql = "SELECT c.titlu, c.editura, c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
@@ -273,7 +273,7 @@ if(isset($_POST['rezervari'])){
                . "<td>$utilizator</td>"
                . "<form action='' method='POST'>"
                . "<input type='text' name='id_r' value='$id_r' hidden/>"
-               . "<td><button name='aproba'>Aproba</button></td></form></tr>" ;
+               . "<td><button class='btn btn-default' name='aproba'>Aproba</button></td></form></tr>" ;
        $crt = $crt + 1;
     }
     
@@ -283,7 +283,7 @@ if(isset($_POST['rezervari'])){
            
     echo "<div class='nereturnat'>"
     . "<p>Carti nereturnate</p>"
-            . "<table border='0' style='width:90%;'>"
+            . "<table class='table table-condensed table-hover' border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
     
     $sql = "SELECT c.titlu, c.editura, c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
@@ -312,7 +312,7 @@ if(isset($_POST['rezervari'])){
                . "<td>$utilizator</td>"
                . "<form action='' method='POST'>"
                . "<input type='text' name='id_r' value='$id_r' hidden/>"
-               . "<td><button name='nereturnat'>Nereturnat</button></td></form></tr>" ;
+               . "<td><button class='btn btn-default' name='nereturnat'>Nereturnat</button></td></form></tr>" ;
        $crt = $crt + 1;
     }
     
@@ -320,7 +320,7 @@ if(isset($_POST['rezervari'])){
     
       echo "<div class='rezervate'>"
     . "<p>Carti imprumutate</p>"
-            . "<table border='0' style='width:90%;'>"
+            . "<table class='table table-condensed table-hover' border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
     
     $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
@@ -352,7 +352,7 @@ if(isset($_POST['rezervari'])){
                . "<input type='text' name='id_r' value='$id_r' hidden/>"
                . "<input type='text' name='id_c' value='$id_c' hidden/>"
                . "<input type='text' name='carti' value='$carti' hidden/>"
-               . "<td><button name='returnat'>Returnare</button></td></form></tr>" ;
+               . "<td><button class='btn btn-default' name='returnat'>Returnare</button></td></form></tr>" ;
        $crt = $crt + 1;
     }
     
@@ -360,7 +360,7 @@ if(isset($_POST['rezervari'])){
             
      echo "<div class='expirate'>"
     . "<p>Carti expirate</p>"
-            . "<table border='0' style='width:90%;'>"
+            . "<table class='table table-condensed table-hover' border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th><th>Aproba</th></tr>";
     
     $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
@@ -392,7 +392,7 @@ if(isset($_POST['rezervari'])){
                 . "<input type='text' name='id_r' value='$id_r' hidden/>"
                . "<input type='text' name='id_c' value='$id_c' hidden/>"
                . "<input type='text' name='carti' value='$carti' hidden/>"
-                . "<button name='returnat' >Returnare</button>"
+                . "<button class='btn btn-default' name='returnat' >Returnare</button>"
                 . "</form></td></tr>" ;
        $crt = $crt + 1;
     }
@@ -402,7 +402,7 @@ if(isset($_POST['rezervari'])){
             
               echo "<div class='returnate'>"
     . "<p>Carti returnate</p>"
-            . "<table border='0' style='width:90%;'>"
+            . "<table class='table table-condensed table-hover' border='0' style='width:90%;'>"
     . "<tr><th>Nr. Crt</th><th>Titlu</th><th>Editura</th><th>Autor</th><th>Data rezervare</th><th>Utilizator</th></tr>";
     
     $sql = "SELECT c.titlu, c.editura,c.nr_carti,  c.autor, r.data_rez, u.nume, u.prenume, c.id_c, u.id_u, r.id_r FROM rezervare r "
